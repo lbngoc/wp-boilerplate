@@ -1,0 +1,35 @@
+version: "3"
+services:
+
+  php:
+    restart: unless-stopped
+    image: wodby/wordpress:${WORDPRESS_TAG}
+    volumes:
+      - ./src:/var/www/src
+      - ./www:/var/www/html
+    labels:
+      - "traefik.enable=false"
+    env_file:
+      - ".env"
+
+  apache:
+    restart: unless-stopped
+    image: wodby/apache:${APACHE_TAG}
+    depends_on:
+      - php
+    environment:
+      APACHE_LOG_LEVEL: debug
+      APACHE_BACKEND_HOST: php
+      APACHE_VHOST_PRESET: php
+    volumes:
+      - ./src:/var/www/src
+      - ./www:/var/www/html
+    labels:
+      - "traefik.backend=${WPSITE_URL}"
+      - "traefik.port=80"
+      - "traefik.frontend.rule=Host:${WPSITE_URL}"
+
+# networks:
+#   default:
+#     external:
+#       name: devbox_reverse_proxy
