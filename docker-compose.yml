@@ -3,6 +3,7 @@ services:
 
   php:
     restart: unless-stopped
+    container_name: ${WPSITE_URL}_wordpress
     image: wodby/wordpress:${WORDPRESS_TAG}
     volumes:
       - ./src:/var/www/src
@@ -14,12 +15,13 @@ services:
 
   apache:
     restart: unless-stopped
+    container_name: ${WPSITE_URL}_server
     image: wodby/apache:${APACHE_TAG}
     depends_on:
       - php
     environment:
       APACHE_LOG_LEVEL: debug
-      APACHE_BACKEND_HOST: php
+      APACHE_BACKEND_HOST: ${WPSITE_URL}_wordpress
       APACHE_VHOST_PRESET: php
     volumes:
       - ./src:/var/www/src
@@ -29,6 +31,7 @@ services:
       - "traefik.port=80"
       - "traefik.frontend.rule=Host:${WPSITE_URL}"
 
+# # Uncomment if you already start traefik
 # networks:
 #   default:
 #     external:
