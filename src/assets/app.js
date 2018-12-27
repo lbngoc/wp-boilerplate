@@ -12,19 +12,10 @@
 
 // Bootstrap
 window.$ = window.jQuery = require('jquery');
-window.Popper = require('popper.js');
-require('bootstrap');
-
-// use tooltip and popover components everywhere
-$(function (){
-  $('[data-toggle="tooltip"]').tooltip()
-  $('[data-toggle="popover"]').popover()
-})
 
 // Scripts
 
 // Vendor scripts - require NPM packages here.
-
 
 // Custom Scripts
 require('./scripts/main.js')

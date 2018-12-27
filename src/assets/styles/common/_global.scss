@@ -1,1 +1,7 @@
 
+html {
+  font-size: $body-size;
+  @include mobile {
+    font-size: calc(0.9 * #{$body-size});
+  }
+}

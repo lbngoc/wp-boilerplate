@@ -1,3 +1,40 @@
-// Grid settings
-$main-sm-columns:       12;
-$sidebar-sm-columns:    4;
+// https://bulma.io/documentation/customize/variables/
+
+// Fonts
+$body-family: "TeXGyreAdventor", Arial, Tahoma, sans-serif;
+$heading-family: "TeXGyreAdventor Bold", Arial, Tahoma, sans-serif;
+
+// Color settings
+$blue: #003975;
+$cyan: #3F95CF;
+$light: #f4f4f4;
+$grey: #969696;
+$grey-darker: #333333;
+
+$primary: $cyan;
+$primary-lighter: #E9F5FC;
+$info: $blue;
+$link: $cyan;
+$text: $grey-darker;
+
+$bg-overlay-lighten: rgba(255, 255, 255, .95);
+$bg-overlay-light: rgba(255, 255, 255, .15);
+$bg-overlay-lighter: rgba(255, 255, 255, .5);
+$bg-overlay-darken: rgba(0, 0, 0, .95);
+$bg-overlay-dark: rgba(0, 0, 0, .15);
+$bg-overlay-darker: rgba(0, 0, 0, .5);
+
+// Responsiveness
+// https://github.com/jgthms/bulma/blob/master/sass/utilities/initial-variables.sass#L46,L57
+$gap: 64px;
+// Tablet (Portrait) & Mobile < 768
+$tablet: 768px;
+$desktop: 960px;
+$widescreen: 1240px;
+$widescreen-enabled: true;
+$fullhd: 1490px;
+$fullhd-enabled: true;
+
+// Sizes
+$body-size: 15px;
+$heading-size: 35px;

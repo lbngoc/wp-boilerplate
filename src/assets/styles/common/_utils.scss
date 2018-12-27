@@ -1,0 +1,77 @@
+/* Box Sizing */
+$box_props: ("mar": "margin", "pad": "padding");
+
+@for $i from 0 through 10 {
+  @for $j from 0 through 10 {
+    @if $i != $j {
+      @each $name, $prop in $box_props {
+        .#{$name}-v-#{$i}-#{$j} {
+          #{$prop}-top: #{$i}rem!important;
+          #{$prop}-bottom: #{$j}rem!important;
+        }
+        .#{$name}-h-#{$i}-#{$j} {
+          #{$prop}-left: #{$i}rem!important;
+          #{$prop}-right: #{$j}rem!important;
+        }
+      }
+    }
+  }
+  @each $name, $prop in $box_props {
+    .#{$name}-#{$i} {
+      #{$prop}: #{$i}rem!important;
+    }
+    .#{$name}-v-#{$i} {
+      #{$prop}-top: #{$i}rem!important;
+      #{$prop}-bottom: #{$i}rem!important;
+    }
+    .#{$name}-h-#{$i} {
+      #{$prop}-left: #{$i}rem!important;
+      #{$prop}-right: #{$i}rem!important;
+    }
+    .#{$name}-top-#{$i} {
+      #{$prop}-top: #{$i}rem;
+      // #{$prop}-top: #{$i}vw;
+    }
+    .#{$name}-bottom-#{$i} {
+      #{$prop}-bottom: #{$i}rem;
+      // #{$prop}-bottom: #{$i}vw;
+    }
+    .#{$name}-left-#{$i} {
+      #{$prop}-left: #{$i}rem;
+      // #{$prop}-left: #{$i}vw;
+    }
+    .#{$name}-right-#{$i} {
+      #{$prop}-right: #{$i}rem;
+      // #{$prop}-right: #{$i}vw;
+    }
+  }
+}
+
+.has-overlay-dark {
+  position: relative;
+  &:after {
+    @extend .is-overlay;
+    content: ' ';
+    background-color: rgba(0, 0, 0, .75);
+  }
+}
+
+.has-background-primary-lighter {
+  background-color: $primary-lighter;
+}
+
+.is-backgroundless {
+  background: 0 none!important;
+}
+
+.is-center-block {
+  @extend .is-inline-block;
+  margin: 0 auto;
+}
+
+.equal-height .align_center,
+.is-v-center {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}

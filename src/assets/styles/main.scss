@@ -1,17 +1,27 @@
+@charset "utf-8";
+
+// Import a Google Font
+// @import url('https://fonts.googleapis.com/css?family=Nunito:400,700');
+
 @import "common/variables";
 
 // "~" tells webpack to look in 'node_modules/'
-@import "~bootstrap/scss/bootstrap.scss";
+@import "~bulma/sass/utilities/_all";
+@import "~bulma/sass/base/generic";
+@import "~bulma/sass/base/helpers";
 
 @import "common/global";
+@import "common/utils";
+// @import "common/fontface"; // We load font from Theme Options
+
 @import "components/buttons";
-@import "components/comments";
 @import "components/forms";
-@import "components/grid";
-@import "components/wp-classes";
+
 @import "layouts/header";
 @import "layouts/sidebar";
 @import "layouts/footer";
 @import "layouts/pages";
 @import "layouts/posts";
-@import "layouts/tinymce";
+
+// Other
+// @import "../styles/dropdown.css";

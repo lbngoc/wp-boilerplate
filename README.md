@@ -122,3 +122,12 @@ Some useful deploy tasks to synchronize between local and host
 - [Sage - WordPress starter theme with a modern development workflow](https://github.com/roots/sage)
 - [sage-8-webpack](https://github.com/drdogbot7/sage-8-webpack)
 - [Deployer — Deployment Tool for PHP](https://deployer.org/)
+
+Insert this to `wp-config.php`
+```
+/** If project use deployer **/
+define('DEPLOYER_DIR', ABSPATH.'../current');
+if (is_link(DEPLOYER_DIR)) {
+    define('WPMU_PLUGIN_DIR', realpath(DEPLOYER_DIR) . '/mu-plugins');
+}
+```

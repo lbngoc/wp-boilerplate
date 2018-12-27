@@ -1,0 +1,11 @@
+#back_to_top {
+  color: $white;
+  background-color: $bg-overlay-darker;
+  box-shadow: none;
+  background-image: none;
+  border-radius: 0;
+  &:hover {
+    background-color: $bg-overlay-darken;
+  }
+}
+

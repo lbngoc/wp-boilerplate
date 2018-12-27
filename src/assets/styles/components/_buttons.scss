@@ -1,0 +1,10 @@
+.button {
+  &.button_theme,
+  &.is-primary {
+    background-color: $primary;
+    color: $white;
+    &:hover {
+      background-color: $bg-overlay-darker;
+    }
+  }
+}
