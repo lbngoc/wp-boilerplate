@@ -112,8 +112,15 @@ task('push:db', function() {
   $db_file = runLocally("wp db export");
   $db_file = explode("'", $db_file);
   $db_file = $db_file[1];
+  // Upload file and import
   upload($db_file, "{{release_path}}");
   run("cd {{wp_path}} && {{bin/wp}} db import {{release_path}}/$db_file && {{bin/wp}} search-replace --all-tables $local_url {{public_url}} && rm {{release_path}}/$db_file");
+  // check and replace URLs by Revolution Slider
+  $has_rsr = run("cd {{wp_path}} && {{bin/wp}} cli has-command rsr && echo $?");
+  if ($has_rsr == '0') {
+    run("cd {{wp_path}} && {{bin/wp}} rsr all $local_url {{public_url}}");
+  }
+  // remove temp file on local
   runLocally("rm $db_file");
 });
 
@@ -131,6 +138,10 @@ task('pull:db', function() {
     runLocally("wp db import {{project_path}}/.data/$db_file && rm {{project_path}}/.data/$db_file");
     $public_url = runLocally("wp option get siteurl");
     runLocally("wp search-replace --all-tables $public_url $local_url");
+    $has_rsr = runLocally("wp cli has-command rsr && echo $?");
+    if ($has_rsr == '0') {
+      runLocally("wp rsr all $public_url $local_url");
+    }
   }
 });
 
@@ -172,6 +183,14 @@ task('wp:archive', function() {
   $gz_file = "$host-$rand_str.tar.gz";
   runLocally("$cmd_export_db$db_file && wp plugin list --status=active --format=csv > $plg_file && tar -chf .data/$gz_file www/wp-content $plg_file $db_file && rm $db_file; rm $plg_file");
   writeln("<info>Current project data is archived at \".data/$gz_file\"</info>");
+});
+
+desc('Add some commands to test here...');
+task('test', function() {
+  $has_cmd = runLocally("wp cli has-command rsr && echo $?");
+  if ($has_cmd == '0') {
+    writeln('command rsr exists.');
+  }
 });
 
 // Deploy flow
