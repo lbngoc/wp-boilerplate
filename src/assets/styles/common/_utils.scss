@@ -1,3 +1,21 @@
+/* @link https://bulma.io/documentation/modifiers/syntax/
+// Float
+  is-clearfix Fixes an element's floating children
+  is-pulled-left  Moves an element to the left
+  is-pulled-right Moves an element to the right
+// Spacing
+  is-marginless Removes any margin
+  is-paddingless  Removes any padding
+// Other
+  is-overlay  Completely covers the first positioned parent
+  is-clipped  Adds overflow hidden
+  is-radiusless Removes any radius
+  is-shadowless Removes any shadow
+  is-unselectable Prevents the text from being selectable
+  is-invisible  Adds visibility hidden
+  is-sr-only  Hide elements visually but keep the element available to be announced by a screen reader
+*/
+
 /* Box Sizing */
 $box_props: ("mar": "margin", "pad": "padding");
 
@@ -47,6 +65,7 @@ $box_props: ("mar": "margin", "pad": "padding");
   }
 }
 
+/* Background */
 .has-overlay-dark {
   position: relative;
   &:after {

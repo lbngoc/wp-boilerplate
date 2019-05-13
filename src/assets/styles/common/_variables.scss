@@ -1,8 +1,8 @@
 // https://bulma.io/documentation/customize/variables/
 
 // Fonts
-$body-family: "TeXGyreAdventor", Arial, Tahoma, sans-serif;
-$heading-family: "TeXGyreAdventor Bold", Arial, Tahoma, sans-serif;
+$body-family: "Source Sans Pro", Arial, Tahoma, sans-serif;
+$heading-family: "Source Sans Pro", Arial, Tahoma, sans-serif;
 
 // Color settings
 $blue: #003975;
@@ -28,6 +28,7 @@ $bg-overlay-darker: rgba(0, 0, 0, .5);
 // https://github.com/jgthms/bulma/blob/master/sass/utilities/initial-variables.sass#L46,L57
 $gap: 64px;
 // Tablet (Portrait) & Mobile < 768
+$xs: 360px; // Galaxy S9, iPhone 5,..
 $tablet: 768px;
 $desktop: 960px;
 $widescreen: 1240px;
@@ -38,3 +39,7 @@ $fullhd-enabled: true;
 // Sizes
 $body-size: 15px;
 $heading-size: 35px;
+
+// Radius
+$radius-small: .4rem;
+$radius-large: .8rem;

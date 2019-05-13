@@ -4,4 +4,31 @@ html {
   @include mobile {
     font-size: calc(0.9 * #{$body-size});
   }
+  @include until($xs) {
+    font-size: calc(0.7 * #{$body-size});
+  }
+  body {
+    font-size: $body-size;
+    @include mobile {
+      h1, h1 span {
+        font-size: 2rem;
+      }
+      h2, h2 span {
+        font-size: 1.75rem;
+      }
+      h3, h3 span {
+        font-size: 1.5rem;
+      }
+      h4, h4 span,
+      h5, h5 span {
+        font-size: 1.25rem;
+      }
+      h6, h6 span {
+        font-size: 1.1rem;
+      }
+      p {
+        font-size: 1rem
+      }
+    }
+  }
 }
