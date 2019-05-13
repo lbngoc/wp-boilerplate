@@ -9,6 +9,8 @@
  * The routing is enclosed within an anonymous function so that you can
  * always reference jQuery with $, even when in .noConflict() mode.
  * ======================================================================== */
+import Common from './_common';
+import HomePage from './_home';
 
 (function($) {
 
@@ -16,29 +18,8 @@
   // rename this variable, you will also need to rename the namespace below.
   var Sage = {
     // All pages
-    'common': {
-      init: function() {
-        // JavaScript to be fired on all pages
-      },
-      finalize: function() {
-        // JavaScript to be fired on all pages, after page specific JS is fired
-      }
-    },
-    // Home page
-    'home': {
-      init: function() {
-        // JavaScript to be fired on the home page
-      },
-      finalize: function() {
-        // JavaScript to be fired on the home page, after the init JS
-      }
-    },
-    // About us page, note the change from about-us to about_us.
-    'about_us': {
-      init: function() {
-        // JavaScript to be fired on the about us page
-      }
-    }
+    'common': Common,
+    'home': HomePage
   };
 
   // The routing fires all common scripts, followed by the page specific scripts.
