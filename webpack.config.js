@@ -25,7 +25,8 @@ const BROWSER_SYNC_OPTIONS = {
   watchOptions: {
     ignored: [
       '.data/**/*',
-      'node_modules/**/*'
+      'node_modules/**/*',
+      'www/**/*'
     ],
   }
 };
