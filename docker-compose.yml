@@ -31,8 +31,9 @@ services:
       - "traefik.port=80"
       - "traefik.frontend.rule=Host:${WPSITE_URL}"
 
-# # Uncomment if you already start traefik
-# networks:
-#   default:
-#     external:
-#       name: devbox_reverse_proxy
+# Start traefik proxy first (https://github.com/lbngoc/devbox)
+# then change devbox_reverse_proxy to correct your network name
+networks:
+  default:
+    external:
+      name: devbox_reverse_proxy
