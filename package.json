@@ -64,6 +64,7 @@
   },
   "dependencies": {
     "bootstrap": "^4.0.0",
+    "resolve-url-loader": "^2.3.0",
     "popper.js": "^1.12.6"
   }
 }

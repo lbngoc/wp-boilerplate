@@ -1,13 +1,13 @@
 //webpack.config.js
 
-const webpack               = require('webpack');
+const webpack = require('webpack');
 
-const BrowserSyncHotPlugin  = require('browser-sync-dev-hot-webpack-plugin');
-const CleanWebpackPlugin    = require('clean-webpack-plugin');
-const ExtractTextPlugin     = require('extract-text-webpack-plugin');
-const ImageminPlugin        = require('imagemin-webpack-plugin').default;
-const path                  = require('path');
-const exec                  = require('child_process').exec;
+const BrowserSyncHotPlugin = require('browser-sync-dev-hot-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const ImageminPlugin = require('imagemin-webpack-plugin').default;
+const path = require('path');
+const exec = require('child_process').exec;
 const WebpackAssetsManifest = require('webpack-assets-manifest');
 require('dotenv').config();
 
@@ -16,7 +16,7 @@ const BROWSER_SYNC_OPTIONS = {
   https: false,
   host: 'localhost',
   port: 3000,
-  proxy: [ 'http://', process.env.WPSITE_URL, process.env.WPSITE_PORT ? ':' + process.env.WPSITE_PORT : '' ].join(''),
+  proxy: ['http://', process.env.WPSITE_URL, process.env.WPSITE_PORT ? ':' + process.env.WPSITE_PORT : ''].join(''),
   open: false,
   files: [
     'src/**/*.js',
@@ -25,8 +25,7 @@ const BROWSER_SYNC_OPTIONS = {
   watchOptions: {
     ignored: [
       '.data/**/*',
-      'node_modules/**/*',
-      'www/**/*'
+      'node_modules/**/*'
     ],
   }
 };
@@ -57,64 +56,81 @@ module.exports = (env = {}) => {
       jquery: 'jQuery',
     },
     // devtool: isProduction ? "source-map" : "cheap-eval-source-map",
-    devtool: isProduction ? "nosources-source-map" : "eval",
+    // devtool: isProduction ? "nosources-source-map" : "eval",
+    devtool: isProduction ? "cheap-module-source-map" : "eval",
     module: {
       rules: [{
-        test: /\.scss$/,
-        include: path.resolve(__dirname, 'src/assets'),
-        use: ExtractTextPlugin.extract({
-          use: [{
-            loader: "css-loader", options: {
-              sourceMap: true
-            }
-          }, {
-            loader: "postcss-loader", options: {
-              sourceMap: true,
-              config: {
-                path: 'configs/webpack/postcss.config.js'
+          test: /\.scss$/,
+          include: path.resolve(__dirname, 'src/assets'),
+          use: ExtractTextPlugin.extract({
+            use: [{
+                loader: "css-loader",
+                options: {
+                  sourceMap: true
+                }
+              }, {
+                loader: "postcss-loader",
+                options: {
+                  sourceMap: true,
+                  config: {
+                    path: 'configs/webpack/postcss.config.js'
+                  }
+                }
+              },
+              'resolve-url-loader',
+              {
+                loader: "sass-loader",
+                options: {
+                  sourceMap: true
+                }
               }
-            }
-          }, {
-            loader: "sass-loader", options: {
-              sourceMap: true
-            }
-          }],
-          // use style-loader in development
-          fallback: "style-loader"
-        })
-      }, {
-        test: /\.(png|jpg|jpeg|gif|svg)$/,
-        include: path.resolve(__dirname, 'src/assets/images'),
-        use: [
-          {
+            ],
+            // use style-loader in development
+            fallback: "style-loader"
+          })
+        }, {
+          test: /\.(png|jpg|jpeg|gif|svg)$/,
+          include: path.resolve(__dirname, 'src/assets/images'),
+          use: [{
             loader: 'file-loader',
             options: {
               name: isProduction ? "images/[name]-[hash].[ext]" : "images/[name].[ext]",
             }
-          }
-        ]
-      }, {
-        test: /\.(png|jpg|jpeg|gif|svg)$/,
-        include: path.resolve(__dirname, 'src/assets/css-images'),
-        use: [
-          {
+          }]
+        }, {
+          test: /\.(png|jpg|jpeg|gif|svg)$/,
+          include: path.resolve(__dirname, 'src/assets/css-images'),
+          use: [{
             loader: 'url-loader',
             options: {
               name: isProduction ? "images/[name]-[hash].[ext]" : "images/[name].[ext]",
               limit: 8192
             }
-          }
-        ]
-      }, {
-        test: /\.js$/,
-        include: path.resolve(__dirname, 'src/assets'),
-        use: [{
-          loader: 'babel-loader',
-          options: {
-            presets: [["env"]]
-          }
-        }]
-      }]
+          }]
+        }, {
+          test: /\.(ttf|otf|eot|svg|woff(2)?)$/,
+          include: path.resolve(__dirname, 'src/assets/fonts'),
+          use: [{
+            loader: 'url-loader',
+            options: {
+              name: isProduction ? "fonts/[name]-[hash].[ext]" : "fonts/[name].[ext]",
+              limit: 100000
+            }
+          }]
+        },
+        {
+          test: /\.js$/,
+          include: path.resolve(__dirname, 'src/assets'),
+          use: [{
+            loader: 'babel-loader',
+            options: {
+              presets: [
+                ["env"]
+              ]
+            }
+          }]
+        }
+      ]
     },
     plugins: [
       new webpack.ProvidePlugin({
@@ -123,7 +139,9 @@ module.exports = (env = {}) => {
         'window.jQuery': 'jquery',
         Popper: ['popper.js', 'default'],
       }),
-      isProduction && new CleanWebpackPlugin('dist', { root: path.resolve(__dirname, 'src') }),
+      isProduction && new CleanWebpackPlugin('dist', {
+        root: path.resolve(__dirname, 'src')
+      }),
       isDevelopment && new BrowserSyncHotPlugin({
         browserSync: BROWSER_SYNC_OPTIONS,
         devMiddleware: DEV_MIDDLEWARE_OPTIONS,
@@ -140,15 +158,17 @@ module.exports = (env = {}) => {
       new WebpackAssetsManifest({
         output: 'assets.json',
         replacer: require('./configs/webpack/assetManifestsFormatter')
-        }),
+      }),
       new ImageminPlugin({
-         test: '/\.(jpe?g|png|gif|svg)$/i',
-         disable: isDevelopment
+        test: '/\.(jpe?g|png|gif|svg)$/i',
+        disable: isDevelopment
       }),
       isProduction && new webpack.optimize.UglifyJsPlugin({
         minimize: true,
         sourceMap: true,
-        output: { comments: false }
+        output: {
+          comments: false
+        }
       }),
       new ExtractTextPlugin({
         filename: isProduction ? "styles/[name]-[contenthash].css" : "styles/[name].css",
