@@ -25,8 +25,7 @@ const BROWSER_SYNC_OPTIONS = {
   watchOptions: {
     ignored: [
       '.data/**/*',
-      'node_modules/**/*',
-      'www/**/*'
+      'node_modules/**/*'
     ],
   }
 };
@@ -57,7 +56,8 @@ module.exports = (env = {}) => {
       jquery: 'jQuery',
     },
     // devtool: isProduction ? "source-map" : "cheap-eval-source-map",
-    devtool: isProduction ? "nosources-source-map" : "eval",
+    // devtool: isProduction ? "nosources-source-map" : "eval",
+    devtool: isProduction ? "cheap-module-source-map" : "eval",
     module: {
       rules: [{
           test: /\.scss$/,

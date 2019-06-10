@@ -185,6 +185,29 @@ task('wp:archive', function() {
   writeln("<info>Current project data is archived at \".data/$gz_file\"</info>");
 });
 
+desc('Activate Wordpress Maintenance mode');
+task('wp:lock', function() {
+  $cmd = 'echo "<?php $upgrading = time();" > .maintenance';
+  run("cd {{wp_path}}; ${cmd} ");
+  writeln("<info>Success: Activated Maintenance mode.</info>");
+});
+
+desc('Deactivate Wordpress Maintenance mode');
+task('wp:unlock', function() {
+  $cmd = 'rm -f .maintenance';
+  run("cd {{wp_path}}; ${cmd} ");
+  writeln("<info>Success: Decctivated Maintenance mode.</info>");
+});
+
+desc('Purge cache file');
+task('wp:purge:cache', function() {
+  // Check if use LiteSpeed plugin
+  $has_lscache = run("cd {{wp_path}} && {{bin/wp}} cli has-command lscache-purge && echo $?");
+  if ($has_lscache == '0') {
+    run("cd {{wp_path}} && {{bin/wp}} lscache-purge all");
+  }
+});
+
 desc('Add some commands to test here...');
 task('test', function() {
   $has_cmd = runLocally("wp cli has-command rsr && echo $?");
@@ -201,13 +224,13 @@ task('deploy', [
   'deploy:lock',
   'deploy:release',
   'deploy:update_code',
+  'deploy:update_db',
   'deploy:shared',
   'deploy:writable',
   // 'deploy:vendors',
   'deploy:clear_paths',
   'deploy:symlink',
   'deploy:symlink_wp',
-  'deploy:update_db',
   'deploy:unlock',
   'cleanup',
   'success'
@@ -217,3 +240,4 @@ task('deploy', [
 after('deploy:failed', 'deploy:unlock');
 
 after('deploy:prepare', 'wp:check');
+after('push:theme', 'wp:purge:cache');

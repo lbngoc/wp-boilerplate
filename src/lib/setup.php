@@ -13,7 +13,7 @@ function setup() {
   add_theme_support('soil-clean-up');
   add_theme_support('soil-nav-walker');
   add_theme_support('soil-nice-search');
-  // add_theme_support('soil-jquery-cdn');
+  add_theme_support('soil-jquery-cdn');
   add_theme_support('soil-relative-urls');
 
   // Make theme available for translation
@@ -26,23 +26,23 @@ function setup() {
 
   // Register wp_nav_menu() menus
   // http://codex.wordpress.org/Function_Reference/register_nav_menus
-  // register_nav_menus([
-  //   'primary_navigation' => __('Primary Navigation', 'sage')
-  // ]);
+  register_nav_menus([
+    'primary_navigation' => __('Primary Navigation', 'sage')
+  ]);
 
   // Enable post thumbnails
   // http://codex.wordpress.org/Post_Thumbnails
   // http://codex.wordpress.org/Function_Reference/set_post_thumbnail_size
   // http://codex.wordpress.org/Function_Reference/add_image_size
-  // add_theme_support('post-thumbnails');
+  add_theme_support('post-thumbnails');
 
   // Enable post formats
   // http://codex.wordpress.org/Post_Formats
-  // add_theme_support('post-formats', ['aside', 'gallery', 'link', 'image', 'quote', 'video', 'audio']);
+  add_theme_support('post-formats', ['aside', 'gallery', 'link', 'image', 'quote', 'video', 'audio']);
 
   // Enable HTML5 markup support
   // http://codex.wordpress.org/Function_Reference/add_theme_support#HTML5
-  // add_theme_support('html5', ['caption', 'comment-form', 'comment-list', 'gallery', 'search-form']);
+  add_theme_support('html5', ['caption', 'comment-form', 'comment-list', 'gallery', 'search-form']);
 
   // Use main stylesheet for visual editor
   // To add custom styles edit /assets/styles/layouts/_tinymce.scss
@@ -72,7 +72,7 @@ function widgets_init() {
     'after_title'   => '</h3>'
   ]);
 }
-// add_action('widgets_init', __NAMESPACE__ . '\\widgets_init');
+add_action('widgets_init', __NAMESPACE__ . '\\widgets_init');
 
 /**
  * Determine which pages should NOT display the sidebar
@@ -109,6 +109,28 @@ function assets() {
 }
 add_action('wp_enqueue_scripts', __NAMESPACE__ . '\\assets', 1000);
 
+function assets_high_priotiy() {
+  wp_enqueue_script('sage/customizer-js', Assets\asset_path('scripts/customizer.js'), ['jquery'], null, true);
+}
+add_action('wp_enqueue_scripts', __NAMESPACE__ . '\\assets_high_priotiy', 1);
+
+function get_author_text_credit() {
+  return <<<TEXT
+             This website was developed by Ngoc L.B.
+          Feel free to touch me at <contact@ngoclb.com>
+                                  .
+/////////////////////////////////////////////////////////////////////////
+                                _   _
+                               | | | |
+ _ __     __ _    ___     ___  | | | |__         ___    ___    _ __ ___
+| '_ \   / _` |  / _ \   / __| | | | '_ \       / __|  / _ \  | '_ ` _ \
+| | | | | (_| | | (_) | | (__  | | | |_) |  _  | (__  | (_) | | | | | | |
+|_| |_|  \__, |  \___/   \___| |_| |_.__/  (_)  \___|  \___/  |_| |_| |_|
+          __/ |
+         |___/
+/////////////////////////////////////////////////////////////////////////
+TEXT;
+}
 /**
  * Print some HTML code before body tag
  *
@@ -119,18 +141,15 @@ function html_on_before_tag() {
   if (is_child_theme()) {
     echo sprintf("<link rel='stylesheet' href='%s' type='text/css' media='all' />\n", Assets\asset_path('styles/main.css'));
   }
-  $info = <<<HTML
-<!-- Maintained by            _  _
-                             | || |
-   _ __    __ _   ___    ___ | || |__       ___   ___   _ __ ___
-  | '_ \  / _` | / _ \  / __|| || '_ \     / __| / _ \ | '_ ` _ \
-  | | | || (_| || (_) || (__ | || |_) | _ | (__ | (_) || | | | | |
-  |_| |_| \__, | \___/  \___||_||_.__/ (_) \___| \___/ |_| |_| |_|
-          __/ |
-         |___/        Feel free to touch me at contact@ngoclb.com
-// -->
-HTML;
-  echo $info;
+  echo "<script id='author-credit'>//<![CDATA[\n";
+  $credit = explode("\n", get_author_text_credit());
+  array_walk($credit, function($text) {
+    echo sprintf("console.log(\"%s\", \"%s\");", '%c' . str_replace("\\", "\\\\", $text), "color: red; font-size: 16px; font-weight: bold; text-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0,0,0,.1), 0 0 5px rgba(0,0,0,.1), 0 1px 3px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,.2), 0 5px 10px rgba(0,0,0,.25), 0 1px 1px rgba(0,0,0,.2), 0 2px 2px rgba(0,0,0,.15);");
+  });
+  echo "\n//]]></script>";
 }
 add_action('wp_head', __NAMESPACE__ . '\\html_on_before_tag', 10000);
+add_action('wp_head', function() {
+  echo "<meta name=\"web_author\" content=\"Ngoc L.B <contact@ngoclb.com>\" />\n";
+}, 1);
 
