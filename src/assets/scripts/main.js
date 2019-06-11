@@ -11,6 +11,7 @@
  * ======================================================================== */
 import Common from './_common';
 import HomePage from './_home';
+import PostPage from './_post';
 
 (function($) {
 
@@ -19,7 +20,8 @@ import HomePage from './_home';
   var Sage = {
     // All pages
     'common': Common,
-    'home': HomePage
+    'home': HomePage,
+    'single_post': PostPage
   };
 
   // The routing fires all common scripts, followed by the page specific scripts.

@@ -1,0 +1,19 @@
+.column.one.comments {
+  @include tablet {
+    padding-left: 15%;
+    padding-right: 15%;
+    width: 68%;
+  }
+}
+
+#respond {
+  input, select, textarea {
+    font-size: 1rem;
+    &:not(.button):not(.submit) {
+      color: $text;
+    }
+    &.has-text-danger {
+      border-color: $danger;
+    }
+  }
+}

@@ -1,0 +1,132 @@
+.single-post {
+  .content_wrapper {
+    .container {
+      @include mobile {
+        padding-left: 0!important;
+        padding-right: 0!important;
+      }
+    }
+  }
+  .the_content_wrapper {
+    video, iframe {
+      max-height: 333px;
+      max-height: 44vh;
+    }
+  }
+  .post-header {
+    .button-love {
+      @include mobile {
+        text-align: left;
+      }
+    }
+    .title_wrapper {
+      @include mobile {
+        clear: left;
+        margin-left: 0;
+        padding-top: 1rem;
+        padding-left: 0;
+        border: 0 none;
+      }
+    }
+  }
+  .category {
+    .cat-btn {
+      padding-right: 5px;
+    }
+  }
+  ul.post-categories, ul.post-tags {
+    display: inline-block;
+    padding-left: 2px;
+    li {
+      &:not(:first-child) {
+        padding-left: 3px;
+      }
+      display: inline-block;
+      &:not(:last-child) {
+        &:after {
+          content: ', ';
+          display: inline-block;
+        }
+      }
+      a {
+        color: #000;
+        font-weight: 400;
+        &:hover {
+          color: $primary;
+        }
+      }
+    }
+  }
+  .post-categories a {
+    font-weight: bold;
+  }
+  .related-title,
+  #reply-title,
+  #comments-title {
+    color: #000;
+    font-weight: bold;
+    font-size: $body-size;
+  }
+  .section-post-related .section-related-adjustment {
+    border-top-width: 0;
+  }
+  .section-post-footer {
+    margin-bottom: 2rem;
+  }
+  .section-post-comments {
+    #comments {
+      > :first-child {
+        border-top-width: 0;
+      }
+      .commentlist > li {
+        margin-bottom: 1rem;
+        position: relative;
+        .cld-like-dislike-wrap {
+          margin-bottom: 0.7rem;
+        }
+        .reply {
+          position: relative;
+          top: 0;
+          right: auto;
+          a.comment-reply-link {
+            border-radius: $radius-rounded!important;
+          }
+        }
+      }
+    }
+    input, textarea {
+      color: $text;
+      font-size: 1rem;
+    }
+    #commentform {
+      @include desktop {
+        max-width: 66.57%
+      }
+    }
+    .form-submit {
+      // @include mobile {
+      //   text-align: center;
+      // }
+      input#submit {
+        @extend .button.is-primary;
+        border-radius: $radius-rounded!important;
+        float: none!important;
+      }
+    }
+  }
+  .section-related-ul {
+    h4, .desc a {
+      font-weight: 400;
+    }
+    .post-related {
+      .image_frame {
+        margin-bottom: 0;
+        border-width: 0;
+        @include tablet {
+          max-height: 200px;
+          overflow: hidden;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,76 @@
+.product {
+  .price {
+    &:empty {
+      display: none;
+    }
+  }
+
+  .summary {
+    h2 {
+      font-size: 2rem;
+      line-height: 1.2;
+    }
+  }
+
+  .product_meta {
+    padding-top: 15px;
+    font-size: 0.8rem;
+  }
+
+  .tabs_wrapper {
+    .ui-tabs-anchor {
+      font-size: 1rem;
+    }
+    #tab-description {
+      h1,
+      h2 {
+        font-size: 2rem !important;
+        line-height: 1.2;
+      }
+    }
+    #tab-reviews {
+      h2.woocommerce-Reviews-title,
+      .comment-reply-title,
+      .woocommerce-noreviews {
+        display: none;
+      }
+      .comment-reply-title {
+        font-size: 1rem;
+      }
+      .comment-notes {
+        font-size: .8rem;
+      }
+    }
+
+
+  }
+}
+
+.woocommerce-content,
+.related.products {
+  // border-top-width: 0!important;
+  ul.products {
+    .hover_box {
+      background-color: $bg-overlay-darken;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
+
+    .desc {
+      h4 {
+        font-size: 1rem;
+        // font-weight: normal!important;
+        line-height: 1.2;
+      }
+    }
+  }
+}
+
+.price_slider_wrapper {
+  .price_slider_amount {
+    .button {
+      line-height: 1!important;
+    }
+  }
+}

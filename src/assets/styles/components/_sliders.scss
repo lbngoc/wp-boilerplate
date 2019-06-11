@@ -1,0 +1,144 @@
+// #mfn-rev-slider {
+//   .rev_slider_wrapper {
+//     body.home & {
+//       // @extend .has-bg-gradient;
+//       .button {
+//         width: 100%;
+//         text-align: center;
+//         font-size: 1.2rem!important;
+//         &.is-outlined {
+//           border-width: 1px!important;
+//         }
+//       }
+//       #fancy-divider {
+//         left: 0!important;
+//       }
+//     }
+//   }
+// }
+
+.rev_slider {
+  .has-border-blob {
+    overflow: hidden!important;
+  }
+  div.tparrows {
+    &:before {
+      transform: translateX(-50%);
+      color: $text;
+      @include widescreen {
+        transform: translateX(-125%);
+      }
+    }
+    &.tp-rightarrow {
+      &:before {
+        color: $text;
+        transform: translateX(50%);
+        @include widescreen {
+          transform: translateX(125%);
+        }
+      }
+    }
+    @include mobile {
+      top: 75%!important;
+    }
+  }
+
+  #why-tittle &,
+  [data-alias='why-tittle'] & {
+    div.tp-bgimg {
+      @include mobile {
+        background-size: contain!important;
+        background-position: 40px bottom!important;
+      }
+    }
+  }
+  #features-slider &,
+  [data-alias='features-slider'] & {
+    div.tp-bgimg {
+      @include mobile {
+        background-size: cover!important;
+      }
+    }
+  }
+  #about-us-head &,
+  [data-alias='about-us'] & {
+    @include mobile {
+      // text-shadow: 0 1px $light;
+      div.tp-bgimg {
+        // filter: blur(20px);
+        // opacity: 0.5;
+      }
+    }
+    .column {
+      &.one-second {
+        @include mobile {
+          width: 41%!important;
+          margin: auto 2%;
+        }
+        clear: none;
+        &:last-child {
+          @include mobile {
+            width: 51%!important;
+          }
+          .quick_fact {
+            @include tablet {
+              padding-right: 10px;
+            }
+          }
+        }
+      }
+    }
+    .quick_fact {
+      .number-wrapper {
+        margin-bottom: 10px;
+      }
+      @include tablet {
+        padding-right: 60px;
+      }
+      .number,
+      .label {
+        color: $primary;
+        // font-weight: bold;
+        font-size: 4.5rem;
+        margin-bottom: 15px;
+      }
+      .desc {
+        @include tablet {
+          text-align: justify;
+          padding: 0 15px;
+        }
+        padding: 0 18px;
+      }
+    }
+  }
+}
+
+// Slick Sliders (for Offers, Testinomals...)
+.slick-slider {
+  ul.slick-dots {
+    list-style: none;
+    @extend .is-marginless;
+    li {
+      display: inline-block;
+      button {
+        @extend .is-paddingless;
+        text-indent: -9999px;
+        background-color: $grey;
+        width: 12px;
+        height: 12px;
+        margin: 0 4px!important;
+        border-radius: 50%;
+      }
+      &.slick-active {
+        button {
+          background-color: $primary;
+        }
+      }
+    }
+  }
+  &.videointro_slider_ul {
+    .slick-dots {
+      margin-top: 50px!important;
+    }
+  }
+}

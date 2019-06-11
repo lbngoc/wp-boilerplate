@@ -48,7 +48,7 @@ $box_props: ("mar": "margin", "pad": "padding");
     }
     .#{$name}-top-#{$i} {
       #{$prop}-top: #{$i}rem;
-      // #{$prop}-top: #{$i}vw;
+      // #{$prop}-top: calc(#{$i}*#{$body-size});
     }
     .#{$name}-bottom-#{$i} {
       #{$prop}-bottom: #{$i}rem;
@@ -65,18 +65,56 @@ $box_props: ("mar": "margin", "pad": "padding");
   }
 }
 
-/* Background */
-.has-overlay-dark {
-  position: relative;
-  &:after {
-    @extend .is-overlay;
-    content: ' ';
-    background-color: rgba(0, 0, 0, .75);
+$overlays: (
+  'light'  : $bg-overlay-light,
+  'lighter': $bg-overlay-lighter,
+  'lighten': $bg-overlay-lighten,
+  'dark'   : $bg-overlay-dark,
+  'darker' : $bg-overlay-darker,
+  'darken' : $bg-overlay-darken
+);
+
+@each $color_name, $color in $overlays {
+  .has-overlay-#{$color_name} {
+    position: relative;
+    &:after {
+      content: ' ';
+      @extend .is-overlay;
+      background-color: $color;
+    }
   }
 }
 
 .has-background-primary-lighter {
   background-color: $primary-lighter;
+}
+
+.has-bg-gradient {
+  background-color: $primary;
+  background: -moz-linear-gradient(0deg, $primary 0%, #2FBEBD 25%, #57c2b1 50%, #8acb98 75%, #bdd973 100%)!important;
+  background: -webkit-linear-gradient(0deg, $primary 0%, #2FBEBD 25%, #57c2b1 50%, #8acb98 75%, #bdd973 100%)!important;
+  background: linear-gradien(0deg, $primary 0%, #2FBEBD 25%, #57c2b1 50%, #8acb98 75%, #bdd973 100%)!important;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="$primary",endColorstr="$secondary",GradientType=1);
+}
+
+.has-bg-contain {
+  background-size: contain;
+}
+
+.has-bg-contain-mobile {
+  @include mobile {
+    background-size: contain!important;
+  }
+}
+
+.has-bg-cover-desktop {
+  @include desktop {
+    background-size: cover!important;
+  }
+}
+
+.has-border-blob {
+  border-radius: 49% 51% 40% 60% / 62% 50% 50% 38%;
 }
 
 .is-backgroundless {
@@ -88,9 +126,34 @@ $box_props: ("mar": "margin", "pad": "padding");
   margin: 0 auto;
 }
 
+.is-zindexless {
+  z-index: 0!important;
+}
+
+.is-borderless {
+  border: 0 none!important;
+}
+
 .equal-height .align_center,
 .is-v-center {
   position: relative;
   top: 50%;
   transform: translateY(-50%);
 }
+
+.is-dimmed {
+  filter: grayscale(100%)!important;
+}
+
+@include mobile {
+  .is-paddingless-mobile {
+    padding: 0!important;
+  }
+  .is-marginless-mobile {
+    margin: 0!important;
+  }
+  .is-backgroundless-mobile {
+    background: 0 none!important;
+  }
+}
+

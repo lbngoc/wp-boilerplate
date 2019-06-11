@@ -1,0 +1,107 @@
+#Header_wrapper {
+  // @extend .has-bg-gradient;
+  #Subheader {
+    @extend .has-bg-gradient;
+    .title {
+      font-size: 50px;
+      line-height: 1.2;
+      @include mobile {
+        font-size: 3rem;
+      }
+    }
+  }
+  z-index: 99998; // overlap wp-admin bar
+}
+// @include mobile {
+  // .tr-menu.header-classic #Top_bar:not(.is-sticky) {
+  //   background-color: transparent!important;
+  //   border-width: 0!important;
+  // }
+// }
+
+#Top_bar {
+  @include tablet {
+    .logo {
+      margin-left: 0!important;
+    }
+    .top_bar_right {
+      padding-right: 0!important;
+    }
+  }
+  body.tr-menu.header-classic & {
+    &:not(.is-sticky) {
+      @extend .has-bg-gradient;
+      &::before {
+        content: ' ';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        display: block;
+        background-color: $bg-overlay-dark;
+      }
+      // @extend .has-overlay-dark;
+      // &:after {
+      //   z-index: -1;
+      // }
+    }
+    &.is-sticky {
+      position: fixed;
+      @extend .has-bg-gradient;
+      @extend .has-overlay-dark;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+      &:after {
+        z-index: -1;
+      }
+    }
+  }
+  .responsive-menu-toggle {
+    color: $white;
+  }
+  #logo {
+    .logo-mobile {
+      max-height: 80%;
+    }
+  }
+  #menu {
+    a {
+      font-weight: 500;
+    }
+  }
+  a.action_button {
+    @extend .button.is-primary.is-inverted;
+    @extend .pad-h-3;
+    border-radius: $radius-rounded;
+  }
+}
+
+#menu {
+  $width: 130px;
+  .wpml-ls-menu-item {
+    .wpml-ls-flag,
+    .wpml-ls-native {
+      vertical-align: middle;
+    }
+    .wpml-ls-native {
+      margin-left: .3rem;
+    }
+    width: $width;
+    &:hover {
+      background-color: $bg-overlay-darker;
+    }
+    .sub-menu {
+      // @extend .has-bg-gradient;
+      background-color: $bg-overlay-darker;
+      // left: 20px;
+      width: $width;
+      li a {
+        color: $white!important;
+        #Side_slide & {
+          padding-left: 20px;
+          font-size: 1rem;
+        }
+      }
+    }
+  }
+}

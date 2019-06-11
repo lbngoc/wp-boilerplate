@@ -1,0 +1,143 @@
+.column_pricing_item {
+  @include tablet {
+    width: 25%!important;
+    margin: 0 auto;
+    &:not(:last-child) {
+      border-right: 1px solid $grey;
+      margin-right: -1px;
+    }
+    box-shadow: 5px 0 50px 0 $grey;
+    padding-top: 2rem;
+  }
+  .pricing-box {
+    .plan-header {
+      h2 {
+        @extend .is-size-3;
+        color: $grey-darker;
+        font-weight: bold;
+      }
+      .image {
+        img {
+          max-height: 100px;
+          width: auto;
+        }
+        margin-bottom: 20px;
+      }
+    }
+    .plan-inside {
+      @extend .pad-h-0;
+      ul {
+        li {
+          border-color: $grey;
+          margin-bottom: 0!important;
+          &:nth-child(2n+1) {
+            background-color: $grey;
+          } // custom color by design
+          .icon-cancel, .icon-check {
+            @extend .is-size-4;
+            @extend .is-block;
+            @extend .has-text-success;
+          }
+          .icon-cancel {
+            @extend .has-text-danger;
+          }
+          [class^="icon-"], .themecolor {
+            line-height: 31px;
+          }
+          strong {
+            color: $text!important;
+            // darken($grey, 35%);
+          }
+          span {
+            @extend .has-text-grey-light;
+          }
+        }
+      }
+    }
+    .plan-footer {
+      border-top: 1px solid $grey;
+      @extend .pad-top-2;
+    }
+    .subtitle {
+      @extend .is-marginless;
+      @extend .is-paddingless;
+      color: $text!important;
+    }
+    .hr_color {
+      background-color: transparent!important;
+      border-color: transparent;
+      display: none;
+    } // other componemt
+    .price {
+      @extend .is-size-3;
+      margin-bottom: 5px;
+      color: $grey-darker;
+      font-weight: 300;
+      .currency {
+        @extend .is-size-5;
+        color: $grey-darker!important;
+      }
+      span {
+        color: $grey-darker;
+        line-height: 2;
+      }
+      .period {
+        @extend .is-block;
+        @extend .is-size-6;
+        min-height: 15px;
+        span {
+          line-height: 15px;
+        }
+        font-weight: normal;
+        color: $grey-darker!important;
+      }
+    }
+    .button {
+      .button_label {
+        width: 100%;
+        text-align: center;
+      }
+      width: 65%;
+      margin: 0 auto;
+      display: block;
+    }
+    &.pricing-box-featured {
+      background-color: transparent;
+      .button {
+        // background-color: $primary;
+        // color: $white;
+        color: $primary;
+        &:hover {
+          color: $white;
+        }
+      }
+    }
+  }
+  .pricing-box-featured {
+    .plan-header {
+      position: relative;
+      &::after {
+        display: block;
+        content: 'Most Popular';
+        color: $danger;
+        position: absolute;
+        right: 0;
+        top: 0%;
+        transform: rotate(45deg);
+        @include mobile {
+          top: 10%;
+        }
+      }
+    }
+    .price {
+      .currency,
+      .period,
+      span {
+        color: $grey-darker!important;
+      }
+    }
+    .subtitle {
+      color: $text!important;
+    }
+  }
+}

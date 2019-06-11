@@ -1,0 +1,18 @@
+.icon_bar {
+  $icon-size: 36px;
+  &, span {
+    width: $icon-size;
+    height: $icon-size;
+    line-height: $icon-size;
+  }
+  i[class^="icon-"] {
+    font-size: $body-size*1.1;
+  }
+  &.icon_bar_instagram {
+    $instagram-color: #DE2C7B;
+    &:hover {
+      background-color: $instagram-color;
+      color: #fff!important;
+    }
+  }
+}

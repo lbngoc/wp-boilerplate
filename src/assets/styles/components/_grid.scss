@@ -1,0 +1,11 @@
+// betheme grid responsive
+.one-second-mobile {
+  [class*="one-"] {
+    @include mobile {
+      width: 48%!important;
+      margin-left: 1%;
+      margin-right: 1%;
+      clear: none;
+    }
+  }
+}

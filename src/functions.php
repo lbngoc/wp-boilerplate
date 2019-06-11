@@ -15,11 +15,22 @@ $sage_includes = [
   'lib/setup.php',     // Theme setup
   'lib/filters.php',   // Custom filters
   'lib/short-codes.php',  // Theme short codes
+  'lib/litespeed.php',  // LiteSpeed plugin
+  'lib/comments.php',  // Comment form & template
 ];
 
-foreach ($sage_includes as $file) {
+$betheme_includes = [
+  'betheme/post-types.php',
+  'betheme/meta-boxes.php',
+  'betheme/short-codes.php',
+  // 'betheme/content-post.php',
+  'betheme/theme-functions.php',
+  'betheme/theme-options.php'
+];
+
+foreach ( array_merge($sage_includes, $betheme_includes) as $file) {
   if (!$filepath = locate_template($file)) {
-    trigger_error(sprintf(__('Error locating %s for inclusion', 'sage'), $file), E_USER_ERROR);
+    trigger_error(sprintf(__('Error locating %s for inclusion', 'betheme'), $file), E_USER_ERROR);
   }
 
   require_once $filepath;

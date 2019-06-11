@@ -1,0 +1,14 @@
+.section.mcb-section {
+  // Default padding for website
+  &[style^="padding-top:0px;padding-bottom:0px"] {
+    padding-top: 6rem!important;
+    padding-bottom: 4rem!important;
+    @include mobile {
+      padding-top: 4rem!important;
+      padding-bottom: 3rem!important;
+    }
+  }
+  .column, .columns {
+    margin-bottom: 2rem;
+  }
+}

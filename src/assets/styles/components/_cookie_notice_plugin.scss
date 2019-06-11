@@ -1,0 +1,54 @@
+// Style for plugin "Cookie Noticee"
+// @url https://wordpress.org/plugins/cookie-notice/
+// on mobile: bottom
+// tablet and up: header
+.cookies-not-set {
+  @include tablet {
+    margin-top: 80px;
+  }
+  @include mobile {
+    margin-bottom: 101px;
+  }
+}
+#cookie-notice {
+  .admin-bar & {
+    top: 32px;
+  }
+  @include mobile {
+    top: auto!important;
+    bottom: 0;
+  }
+  .cookie-notice-container {
+    font-size: $body-size;
+    text-align: left;
+    padding: $body-size;
+    display: flex;
+    flex: 1 1 auto;
+    color: $white;
+    #cn-notice-text {
+      width: 100%;
+      h4, h3 {
+        color: $white;
+        margin: 0;
+        padding: 0;
+      }
+      a {
+        color: $grey;
+      }
+    }
+    #cn-accept-cookie {
+      color: $white;
+      font-size: 2rem;
+      width: 20px;
+      align-self: center;
+      &:hover {
+        text-decoration: none;
+      }
+      &:after {
+        content: ' ';
+        clear: both;
+        display: block;
+      }
+    }
+  }
+}

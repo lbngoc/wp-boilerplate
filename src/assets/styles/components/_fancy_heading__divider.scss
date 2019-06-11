@@ -1,0 +1,30 @@
+.column_fancy_heading {
+  .fancy_heading {
+    .title {
+      @extend .is-size-3;
+      line-height: 2rem;
+    }
+  }
+}
+
+// .fancy-divider {
+//   svg {
+//     @include mobile {
+//       height: 50px!important;
+//     }
+//   }
+// }
+
+.column_divider {
+  @include mobile {
+    max-height: 25px;
+  }
+}
+
+.column_fancy_divider {
+  // height: 100px;
+  // overflow: hidden;
+  .fancy-divider svg:not(:root) {
+    overflow: initial;
+  }
+}

@@ -1,0 +1,8 @@
+.column_image {
+  &.img-maxH-500 {
+    img {
+      max-height: 400px!important;
+      width: auto!important;
+    }
+  }
+}

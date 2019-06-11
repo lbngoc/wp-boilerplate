@@ -1,0 +1,15 @@
+.offer_ul {
+  .button {
+    &.slick-arrow {
+      overflow: hidden;
+      height: 46px;
+      width: 46px!important;
+      min-width: auto!important;
+      padding: 0;
+      border: 0 none !important;
+      border-radius: 0!important;
+    }
+    @extend .button.is-primary;
+    // @extend .is-rounded-small;
+  }
+}

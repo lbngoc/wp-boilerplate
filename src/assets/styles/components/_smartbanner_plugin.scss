@@ -1,0 +1,17 @@
+html.smartbanner-show {
+  body {
+    @include tablet {
+      margin-top: 80px;
+      .smartbanner {
+        position: fixed;
+        z-index: 111111; // higher than cookie-notice
+      }
+    }
+  }
+}
+
+.smartbanner {
+  &.smartbanner-android {
+    box-shadow: initial;
+  }
+}

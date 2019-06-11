@@ -16,3 +16,5 @@ yarn-error.log
 /wp-cli.local.yml
 /docker-compose.override.yml
 /*.bak
+
+betheme/

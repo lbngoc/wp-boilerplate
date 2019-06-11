@@ -1,0 +1,18 @@
+.shop_slider {
+  .button {
+    line-height: 1!important;
+    padding-left: .7rem;
+    padding-right: .7rem;
+    &:hover {
+      z-index: 111;
+    }
+    &.slider_prev {
+      border-radius: 0 0 0 0!important;
+    }
+    &.slider_next {
+      border-radius: 0 0 0 0!important;
+      right: 10px!important;
+    }
+    // padding: 0;
+  }
+}

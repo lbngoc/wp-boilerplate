@@ -9,19 +9,38 @@
 @import "~bulma/sass/utilities/_all";
 @import "~bulma/sass/base/generic";
 @import "~bulma/sass/base/helpers";
-
+// @import "~bulma/sass/elements/form";
+@import "~bulma/sass/elements/button";
+////////////////////////////////////////////////////////
 @import "common/global";
+@import "common/mixins";
 @import "common/utils";
 // @import "common/fontface"; // We load font from Theme Options
-
+@import "components/grid";
 @import "components/buttons";
 @import "components/forms";
-
+@import "components/image";
+@import "components/sliders";
+@import "components/cookie_notice_plugin";
+// betheme components
+@import "components/smartbanner_plugin";
+@import "components/icon_box";
+@import "components/icon_bar";
+@import "components/offer_slider";
+@import "components/fancy_heading__divider";
+@import "components/tabs";
+@import "components/faq";
+@import "components/accordion__faq";
+@import "components/pricing_item";
+@import "components/progress_bar";
+////////////////////////////////////////////////////////
 @import "layouts/header";
 @import "layouts/sidebar";
 @import "layouts/footer";
 @import "layouts/pages";
 @import "layouts/posts";
-
+@import "layouts/home";
+@import "layouts/blog";
+@import "layouts/404";
 // Other
 // @import "../styles/dropdown.css";

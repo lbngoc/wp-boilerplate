@@ -1,0 +1,57 @@
+@mixin icon_box_set_size($icon_size: 2.5rem) {
+  &.icon_position_top {
+    .image_wrapper {
+      margin-bottom: .75rem;
+      img {
+        width: $icon_size*2;
+      }
+    }
+  }
+  &.icon_position_left {
+    padding-left: $icon_size+2rem;
+  }
+  .image_wrapper {
+    width: $icon_size+2rem;
+    height: $icon_size+2rem;
+    img {
+      width: $icon_size;
+    }
+  }
+}
+.column_icon_box {
+  .icon_box {
+    padding-top: 0;
+    padding-bottom: 0;
+    &.icon_position_left {
+      @include tablet-only {
+        padding-left: 0!important;
+      }
+    }
+    &.icon_position_top {
+      .image_wrapper {
+        margin: 0 auto;
+      }
+    }
+    .image_wrapper {
+      @include tablet-only {
+        width: auto!important;
+      }
+      img {
+        height: auto;
+      }
+    }
+    .desc_wrapper {
+      padding: 0;
+      margin: 0;
+      .title {
+        color: $primary;
+        font-weight: bold;
+        &:before {
+          display: none;
+          content: '';
+        }
+      }
+    }
+    @include icon_box_set_size();
+  }
+}

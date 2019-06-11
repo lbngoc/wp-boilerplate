@@ -1,10 +1,72 @@
+a.button {
+  height: auto;
+  min-width: 3rem;
+  padding: .75rem 1rem;
+  @extend .button.is-primary; // &.button_theme {
+  //   background-color: $primary;
+  //   color: $white;
+  //   &:hover {
+  //     background-color: $primary-lighter;
+  //     color: $primary;
+  //   }
+  // }
+  &.is-rounded {
+    border-radius: $radius-rounded;
+  }
+  &.button_js {
+    // padding: inherit;
+  }
+  .button_icon {
+    padding: 0 .75rem 0;
+  }
+  .button_label {
+    @extend .is-paddingless;
+  }
+}
 .button {
-  &.button_theme,
   &.is-primary {
-    background-color: $primary;
-    color: $white;
-    &:hover {
-      background-color: $bg-overlay-darker;
+    border-color: $primary;
+  }
+  &.is-rounded {
+    border-width: 1px!important;
+    border-style: solid!important;
+  }
+  &.is-rounded-small {
+    border-width: 1px!important;
+    border-style: solid!important;
+    border-radius: $radius-small!important;
+  }
+  &.is-rounded-large {
+    border-width: 1px!important;
+    border-style: solid!important;
+    border-radius: $radius-large!important;
+  }
+}
+
+.toggle-container {
+  $border-radius: 100px;
+  border: 1px solid $grey-dark;
+  border-radius: $border-radius!important;
+  display: inline-block;
+  padding: 2px;
+  overflow: hidden;
+  .button {
+    border: 0 none!important;
+    padding: 0!important;
+    margin: 0!important;
+    box-shadow: initial!important;
+    border-radius: $border-radius!important;
+  }
+}
+
+.has-filter-action {
+  button {
+    min-width: 150px;
+    @include mobile {
+      min-width: 130px;
+    }
+    @include until($xs) {
+      min-width: 110px;
     }
   }
 }

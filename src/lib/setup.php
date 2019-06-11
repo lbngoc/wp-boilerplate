@@ -18,7 +18,7 @@ function setup() {
 
   // Make theme available for translation
   // Community translations can be found at https://github.com/roots/sage-translations
-  load_theme_textdomain('sage', get_template_directory() . '/lang');
+  load_theme_textdomain('betheme', get_template_directory() . '/lang');
 
   // Enable plugins to manage the document title
   // http://codex.wordpress.org/Function_Reference/add_theme_support#Title_Tag
@@ -26,23 +26,23 @@ function setup() {
 
   // Register wp_nav_menu() menus
   // http://codex.wordpress.org/Function_Reference/register_nav_menus
-  register_nav_menus([
-    'primary_navigation' => __('Primary Navigation', 'sage')
-  ]);
+  // register_nav_menus([
+  //   'primary_navigation' => __('Primary Navigation', 'betheme')
+  // ]);
 
   // Enable post thumbnails
   // http://codex.wordpress.org/Post_Thumbnails
   // http://codex.wordpress.org/Function_Reference/set_post_thumbnail_size
   // http://codex.wordpress.org/Function_Reference/add_image_size
-  add_theme_support('post-thumbnails');
+  // add_theme_support('post-thumbnails');
 
   // Enable post formats
   // http://codex.wordpress.org/Post_Formats
-  add_theme_support('post-formats', ['aside', 'gallery', 'link', 'image', 'quote', 'video', 'audio']);
+  // add_theme_support('post-formats', ['aside', 'gallery', 'link', 'image', 'quote', 'video', 'audio']);
 
   // Enable HTML5 markup support
   // http://codex.wordpress.org/Function_Reference/add_theme_support#HTML5
-  add_theme_support('html5', ['caption', 'comment-form', 'comment-list', 'gallery', 'search-form']);
+  // add_theme_support('html5', ['caption', 'comment-form', 'comment-list', 'gallery', 'search-form']);
 
   // Use main stylesheet for visual editor
   // To add custom styles edit /assets/styles/layouts/_tinymce.scss
@@ -55,7 +55,7 @@ add_action('after_setup_theme', __NAMESPACE__ . '\\setup');
  */
 function widgets_init() {
   register_sidebar([
-    'name'          => __('Primary', 'sage'),
+    'name'          => __('Primary', 'betheme'),
     'id'            => 'sidebar-primary',
     'before_widget' => '<section class="widget %1$s %2$s">',
     'after_widget'  => '</section>',
@@ -64,7 +64,7 @@ function widgets_init() {
   ]);
 
   register_sidebar([
-    'name'          => __('Footer', 'sage'),
+    'name'          => __('Footer', 'betheme'),
     'id'            => 'sidebar-footer',
     'before_widget' => '<section class="widget %1$s %2$s">',
     'after_widget'  => '</section>',
@@ -72,7 +72,7 @@ function widgets_init() {
     'after_title'   => '</h3>'
   ]);
 }
-add_action('widgets_init', __NAMESPACE__ . '\\widgets_init');
+// add_action('widgets_init', __NAMESPACE__ . '\\widgets_init');
 
 /**
  * Determine which pages should NOT display the sidebar
@@ -153,3 +153,19 @@ add_action('wp_head', function() {
   echo "<meta name=\"web_author\" content=\"Ngoc L.B <contact@ngoclb.com>\" />\n";
 }, 1);
 
+/**
+ * Filter image attibutes inside each Revolution Slide
+ */
+add_action('revslider_add_li_data', function() {
+  ob_start();
+});
+
+add_action('revslider_add_layer_html', function() {
+  $revslideHtml = ob_get_clean();
+  $pattern = '/<img[^>]*src=["\']([^"\']*)[^"\']*["\'][^>]*>/i';
+  echo preg_replace_callback($pattern, function ($match) {
+    $srcset = 'srcset="' .mfn_get_attachment_srcset($match[1]). '"';
+    return str_replace('src', $srcset . ' src', $match[0]);
+  }, $revslideHtml, PREG_SET_ORDER);
+  echo "<!-- Auto add data-no-lazy by Ngoclb.com -->";
+});

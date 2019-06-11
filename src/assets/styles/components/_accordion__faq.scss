@@ -1,0 +1,45 @@
+.column_faq {
+  .faq {
+    .title {
+      @extend .is-size-5;
+    }
+  }
+  .faq_wrapper {
+    .question {
+      @extend .has-background-white-bis;
+      @extend .is-borderless;
+      margin-bottom: $body-size;
+      .title {
+        font-size: $body-size;
+      }
+      &.active {
+        &::after {
+          @extend .has-background-light;
+          width: 60px;
+        }
+      }
+    }
+  }
+}
+.column_accordion {
+  .accordion {
+    .title {
+      @extend .is-size-5;
+    }
+  }
+  .accordion_wrapper {
+    .question {
+      @extend .has-background-white-bis;
+      @extend .is-borderless;
+      margin-bottom: $body-size;
+      .title {
+        font-size: $body-size;
+      } // &.active {
+      //   &::after {
+      //     @extend .has-background-light;
+      //     width: 60px;
+      //   }
+      // }
+    }
+  }
+}

@@ -1,0 +1,123 @@
+#searchform {
+  @extend .mar-v-1;
+  position: relative;
+  .icon_search, .icon_close {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+  }
+  .icon_close {
+    display: none!important;
+  }
+  .icon_search {
+    top: 12px;
+    &:before {
+      font-size: 1.3rem;
+    }
+  }
+  [name='s'] {
+    padding-left: 35px;
+    font-size: 1rem;
+  }
+  // .icon {
+  //   height: 100%;
+  //   &.is-left {
+  //     left: 5px;
+  //     top: 5px;
+  //   }
+  // }
+  // .icon_search, .icon_close {
+  //   @extend .is-marginless;
+  //   @extend .is-paddingless;
+  //   height: 100%;
+
+  //   &:before {
+  //     font-size: 1.5rem;
+  //     font-weight: bold;
+  //   }
+  // }
+  // input[type="text"],
+  // input[type="email"] {
+  //   @extend .is-paddingless;
+  //   @extend .is-marginless;
+  //   @extend .is-rounded;
+  //   font-size: $body-size;
+  //   border: 2px solid $light;
+  //   border-radius: $radius-small;
+  //   padding: 0.5rem .4em!important;
+
+  // }
+  // .has-icons-left {
+  //   input[type="text"],
+  //   input[type="email"] {
+  //     padding-left: 2rem!important;
+  //   }
+  // }
+  // .has-icons-right {
+  //   input[type="text"],
+  //   input[type="email"] {
+  //     padding-right: 2rem!important;
+  //   }
+  // }
+}
+
+.wpcf7-form {
+  label {
+    font-weight: 400;
+  }
+  input, textarea, select {
+    font-size: $body-size;
+    box-shadow: inset 0 1px 2px rgba(10, 10, 10, .1);
+    &, &:focus {
+      color: $text;
+    }
+    &.wpcf7-not-valid {
+      border: 1px solid $danger;
+      +span.wpcf7-not-valid-tip {
+        color: $danger!important;
+        font-size: $body-size*0.8!important;
+        position: initial!important;
+        left: auto!important;
+        top: auto!important;
+        background: none!important;
+        text-indent: 0!important;
+        width: 100%!important;
+        height: auto!important;
+        padding: $body-size*0.3 0 !important;
+      }
+    }
+    border-radius: $radius-small;
+    &[type="submit"], &[type="reset"] {
+      @extend .button.is-primary;
+      border-radius: $radius-rounded;
+      padding-left: 40px;
+      padding-right: 40px;
+      margin-right: 0;
+      &:last-child {
+        margin-right: 10px;
+      }
+      + .ajax-loader:not(.is-active) {
+        display: none;
+      }
+    }
+  }
+}
+
+.g-recaptcha {
+  @include until($xs) {
+    transform: scale(.8) translateX(-10%);
+  }
+}
+
+#contact-form-wrap {
+  .icon_bar:not(:hover) {
+    background-color: $white;
+  }
+  .wpcf7-submit {
+    @extend .button.is-medium;
+  }
+}
+
+.column + .wpcf7-response-output {
+  margin-top: 15px!important;
+}
