@@ -176,7 +176,7 @@ task('wp:archive', function() {
   $cmd_export_db = "wp db export ";
   if (has('public_url') && askConfirmation(sprintf("Replace home_url with \"%s\"?", get('public_url')))) {
     $host = parse_url(get('public_url'))['host'];
-    $cmd_export_db = "wp search-replace $site_url {{public_url}} --export=";
+    $cmd_export_db = "wp search-replace $site_url {{public_url}} --all-tables --export=";
   }
   $db_file = "$host.$rand_str.sql";
   $plg_file = "plugins.csv";
@@ -224,13 +224,13 @@ task('deploy', [
   'deploy:lock',
   'deploy:release',
   'deploy:update_code',
-  'deploy:update_db',
   'deploy:shared',
   'deploy:writable',
   // 'deploy:vendors',
   'deploy:clear_paths',
   'deploy:symlink',
   'deploy:symlink_wp',
+  'deploy:update_db',
   'deploy:unlock',
   'cleanup',
   'success'
