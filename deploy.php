@@ -34,7 +34,10 @@ const RSYNC_OPTS = array(
   'options' => [
     '-L',
     '-K',
-    '--delete'
+    '--delete',
+    '--exclude node_modules',
+    '--exclude .DS_Store',
+    '--exclude .cache'
   ]
 );
 
@@ -59,12 +62,14 @@ desc('Upload plugins to host');
 task('push:plugins', function() {
   upload('{{content_path}}/plugins', '{{release_path}}');
   upload('{{content_path}}/mu-plugins', '{{release_path}}');
+  upload('{{content_path}}/languages', '{{release_path}}');
 });
 
 desc('Download plugins from host');
 task('pull:plugins', function() {
   download('{{wp_path}}/wp-content/plugins', '{{content_path}}');
   download('{{wp_path}}/wp-content/mu-plugins', '{{content_path}}');
+  download('{{wp_path}}/wp-content/languages', '{{content_path}}');
 });
 
 desc('Upload themes to host');
@@ -81,7 +86,8 @@ desc('Upload only activate theme to host');
 task('push:theme', function() {
   $theme_name = runLocally('wp theme list --status=active --field=name');
   if ($theme_name) {
-    upload("{{content_path}}/themes/$theme_name", "{{release_path}}/themes", RSYNC_OPTS);
+    $theme_name = explode('/', $theme_name . '/');
+    upload("{{content_path}}/themes/$theme_name[0]", "{{release_path}}/themes", RSYNC_OPTS);
   }
 });
 
@@ -89,7 +95,8 @@ desc('Download only activate theme from host');
 task('pull:theme', function() {
   $theme_name = runLocally('wp theme list --status=active --field=name');
   if ($theme_name) {
-  download("{{wp_path}}/wp-content/themes/$theme_name", "{{content_path}}/themes", RSYNC_OPTS);
+    $theme_name = explode('/', $theme_name . '/');
+    download("{{wp_path}}/wp-content/themes/$theme_name[0]", "{{content_path}}/themes", RSYNC_OPTS);
   }
 });
 
@@ -116,9 +123,12 @@ task('push:db', function() {
   upload($db_file, "{{release_path}}");
   run("cd {{wp_path}} && {{bin/wp}} db import {{release_path}}/$db_file && {{bin/wp}} search-replace --all-tables $local_url {{public_url}} && rm {{release_path}}/$db_file");
   // check and replace URLs by Revolution Slider
-  $has_rsr = run("cd {{wp_path}} && {{bin/wp}} cli has-command rsr && echo $?");
-  if ($has_rsr == '0') {
-    run("cd {{wp_path}} && {{bin/wp}} rsr all $local_url {{public_url}}");
+  $has_revslider = runLocally("cd {{wp_path}} && {{bin/wp}} plugin is-active revslider && echo $?");
+  if ($has_revslider == '0') {
+    $has_rsr = run("cd {{wp_path}} && {{bin/wp}} cli has-command rsr && echo $?");
+    if ($has_rsr == '0') {
+      run("cd {{wp_path}} && {{bin/wp}} rsr all $local_url {{public_url}}");
+    }
   }
   // remove temp file on local
   runLocally("rm $db_file");
@@ -138,9 +148,12 @@ task('pull:db', function() {
     runLocally("wp db import {{project_path}}/.data/$db_file && rm {{project_path}}/.data/$db_file");
     $public_url = runLocally("wp option get siteurl");
     runLocally("wp search-replace --all-tables $public_url $local_url");
-    $has_rsr = runLocally("wp cli has-command rsr && echo $?");
-    if ($has_rsr == '0') {
-      runLocally("wp rsr all $public_url $local_url");
+    $has_revslider = runLocally("wp plugin is-active revslider && echo $?");
+    if ($has_revslider == '0') {
+      $has_rsr = runLocally("wp cli has-command rsr && echo $?");
+      if ($has_rsr == '0') {
+        runLocally("wp rsr all $public_url $local_url");
+      }
     }
   }
 });
@@ -210,10 +223,11 @@ task('wp:purge:cache', function() {
 
 desc('Add some commands to test here...');
 task('test', function() {
-  $has_cmd = runLocally("wp cli has-command rsr && echo $?");
-  if ($has_cmd == '0') {
-    writeln('command rsr exists.');
-  }
+  // $has_cmd = runLocally("wp cli has-command rsr && echo $?");
+  // if ($has_cmd == '0') {
+  //   writeln('command rsr exists.');
+  // }
+  runLocally("echo 'Run on: ' $(date '+%Y%m%d-%H%M%S')");
 });
 
 // Deploy flow
