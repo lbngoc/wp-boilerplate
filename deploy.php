@@ -123,13 +123,16 @@ task('push:db', function() {
   upload($db_file, "{{release_path}}");
   run("cd {{wp_path}} && {{bin/wp}} db import {{release_path}}/$db_file && {{bin/wp}} search-replace --all-tables $local_url {{public_url}} && rm {{release_path}}/$db_file");
   // check and replace URLs by Revolution Slider
-  $has_revslider = runLocally("cd {{wp_path}} && {{bin/wp}} plugin is-active revslider && echo $?");
-  if ($has_revslider == '0') {
-    $has_rsr = run("cd {{wp_path}} && {{bin/wp}} cli has-command rsr && echo $?");
-    if ($has_rsr == '0') {
-      run("cd {{wp_path}} && {{bin/wp}} rsr all $local_url {{public_url}}");
+  try {
+    $has_revslider = runLocally("cd {{wp_path}} && {{bin/wp}} plugin is-active revslider && echo $?");
+    if ($has_revslider == '0') {
+      $has_rsr = run("cd {{wp_path}} && {{bin/wp}} cli has-command rsr && echo $?");
+      if ($has_rsr == '0') {
+        run("cd {{wp_path}} && {{bin/wp}} rsr all $local_url {{public_url}}");
+      }
     }
-  }
+  } catch (Exception $ex) { }
+
   // remove temp file on local
   runLocally("rm $db_file");
 });
@@ -148,13 +151,15 @@ task('pull:db', function() {
     runLocally("wp db import {{project_path}}/.data/$db_file && rm {{project_path}}/.data/$db_file");
     $public_url = runLocally("wp option get siteurl");
     runLocally("wp search-replace --all-tables $public_url $local_url");
-    $has_revslider = runLocally("wp plugin is-active revslider && echo $?");
-    if ($has_revslider == '0') {
-      $has_rsr = runLocally("wp cli has-command rsr && echo $?");
-      if ($has_rsr == '0') {
-        runLocally("wp rsr all $public_url $local_url");
+    try {
+      $has_revslider = runLocally("wp plugin is-active revslider && echo $?");
+      if ($has_revslider == '0') {
+        $has_rsr = runLocally("wp cli has-command rsr && echo $?");
+        if ($has_rsr == '0') {
+          runLocally("wp rsr all $public_url $local_url");
+        }
       }
-    }
+    } catch (Exception $ex) { }
   }
 });
 
