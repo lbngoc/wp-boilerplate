@@ -191,16 +191,18 @@ task('wp:archive', function() {
   $rand_str = date('Y-m-d');
   $site_url = runLocally("wp option get home");
   $host = parse_url($site_url)['host'];
+  $wp_core_version = runLocally("wp core version");
   $cmd_export_db = "wp db export ";
+  $include_core = askConfirmation(sprintf('Include Wordpress Core (%s)', $wp_core_version));
   if (has('public_url') && askConfirmation(sprintf("Replace home_url with \"%s\"?", get('public_url')))) {
     $host = parse_url(get('public_url'))['host'];
     $cmd_export_db = "wp search-replace $site_url {{public_url}} --all-tables --export=";
   }
   $db_file = "$host.$rand_str.sql";
   $plg_file = "plugins.csv";
-  $gz_file = "$host-$rand_str.tar.gz";
-  runLocally("$cmd_export_db$db_file && wp plugin list --status=active --format=csv > $plg_file && tar -chf .data/$gz_file www/wp-content $plg_file $db_file && rm $db_file; rm $plg_file");
-  writeln("<info>Current project data is archived at \".data/$gz_file\"</info>");
+  $archived_file = "$host-$rand_str.zip";
+  runLocally("$cmd_export_db$db_file && wp plugin list --status=active --format=csv > $plg_file && zip -r .data/$archived_file ".($include_core ? "www/" : "www/wp-content/")." $plg_file $db_file && rm $db_file; rm $plg_file");
+  writeln("<info>Current project data is archived at \".data/$archived_file\"</info>");
 });
 
 desc('Activate Wordpress Maintenance mode');
@@ -259,4 +261,4 @@ task('deploy', [
 after('deploy:failed', 'deploy:unlock');
 
 after('deploy:prepare', 'wp:check');
-after('push:theme', 'wp:purge:cache');
+// after('push:theme', 'wp:purge:cache');
